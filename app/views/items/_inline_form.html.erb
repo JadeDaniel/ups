@@ -1,0 +1,8 @@
+
+<%= form_for [@contest, @item] do |f| %>
+    <div class="field">
+        <%= f.hidden_field :contest_id, value: @contest.id %>
+        <%= f.text_field :name %>
+        <%= f.submit %>
+    </div>
+<% end %>

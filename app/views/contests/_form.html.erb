@@ -1,0 +1,29 @@
+<%= form_with(model: contest, local: true) do |form| %>
+  <% if contest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(contest.errors.count, "error") %> prohibited this contest from being saved:</h2>
+
+      <ul>
+        <% contest.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+  <div>
+    <%= form.label :note %>
+    <%= form.text_area :note %>
+  </div>
+  <div class="field">
+      <%= form.label :tag_list %>
+      <%= form.text_field :tag_list %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

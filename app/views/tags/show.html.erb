@@ -1,0 +1,7 @@
+<h1>Tag: <%= @tag.name %></h1>
+
+<% @tag.taggings.each do |tagging| %>
+  <p><%= tagging.tagged %></p>
+<% end %>
+
+<%= link_to "Back", "#", class: "navigate_back" %>

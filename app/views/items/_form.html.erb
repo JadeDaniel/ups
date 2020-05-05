@@ -1,0 +1,18 @@
+
+<%= form_for [@contest, @item] do |f| %>
+    <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    </div>
+    <div class="field">
+        <%= f.label :notes %>
+        <%= f.text_area :notes %>
+    </div>
+    <div class="field">
+      <%= f.label :tag_list %>
+      <%= f.text_field :tag_list %>
+    </div>
+    <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

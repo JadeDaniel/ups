@@ -1,0 +1,20 @@
+<td>
+          <%= form_for [contest, @vote] do |f| %>
+            <%= f.submit "Up" %>
+            <%= f.hidden_field :contest_id, value: contest.id %>
+          <% end %>
+        </td>
+
+        <td><small><%= contest.votes.size %> votes</small></td>
+        
+
+<td><%= link_to contest.name, contest %></td>
+<td><%= contest.note %></td>
+<td><%= contest.contests.sort_by{|i| i.votes.size }.last.name unless contest.contests.none?  %></td>
+<td>
+  <% contest.tags.each do |t| %>
+    <%= link_to t, t %> 
+  <% end %>
+</td>
+<td><%= link_to 'Edit', edit_contest_path(contest) %></td>
+<td><%= link_to 'Delete', contest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
