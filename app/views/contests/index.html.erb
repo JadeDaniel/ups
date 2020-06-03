@@ -23,7 +23,7 @@
   <tbody>
     <% @contests.where(parent_id: nil).each do |contest| %>
       <tr>
-        <%= render :partial => 'contests/inline', :locals => {:contest => contest} %>
+        <%= render contest%>
       </tr>
     <% end %>
   </tbody>

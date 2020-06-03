@@ -1,11 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <h2><%= @contest.name %></h2>
+
+<%= render "contests/bread_crumbs" %>
+
 <p>
   <%= @contest.note %>
 </p>
 
-<div id="items">
+<div id="contests">
   <hr/>
   <table>
   <% @contest.contests.sort_by{|o| o.votes.size}.reverse.each do |contest| %>
@@ -13,7 +16,7 @@
     <tr>
     <div>
         <td>
-          <%= form_for [contest, @vote] do |f| %>
+          <%= form_for [contest, contest.votes.build] do |f| %>
             <%= f.submit "Up" %>
             <%= f.hidden_field :contest_id, value: contest.id %>
           <% end %>

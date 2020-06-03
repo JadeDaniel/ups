@@ -11,7 +11,6 @@ class ContestsController < ApplicationController
   # GET /contests/1.json
   def show
     @new_sub_contest = @contest.contests.build
-    @vote = @contest.votes.build
   end
 
   # GET /contests/new
