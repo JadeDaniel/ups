@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_04_23_224707) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "contests", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -38,9 +41,9 @@ ActiveRecord::Schema.define(version: 2020_04_23_224707) do
   end
 
   create_table "taggings", force: :cascade do |t|
-    t.integer "tag_id", null: false
-    t.integer "contest_id"
-    t.integer "item_id"
+    t.bigint "tag_id", null: false
+    t.bigint "contest_id"
+    t.bigint "item_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["contest_id"], name: "index_taggings_on_contest_id"
@@ -66,12 +69,15 @@ ActiveRecord::Schema.define(version: 2020_04_23_224707) do
     t.text "note"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "contest_id", null: false
+    t.bigint "item_id"
+    t.bigint "contest_id", null: false
     t.index ["contest_id"], name: "index_votes_on_contest_id"
+    t.index ["item_id"], name: "index_votes_on_item_id"
   end
 
   add_foreign_key "taggings", "contests"
   add_foreign_key "taggings", "items"
   add_foreign_key "taggings", "tags"
   add_foreign_key "votes", "contests"
+  add_foreign_key "votes", "items", on_delete: :cascade
 end

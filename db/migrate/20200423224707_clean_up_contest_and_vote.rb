@@ -1,7 +1,7 @@
 class CleanUpContestAndVote < ActiveRecord::Migration[6.0]
   def up
-    remove_column :votes, :item_id
-    remove_column :contests, :contest_id
+    # remove_column :votes, :item_id
+    # remove_column :contests, :contest_id
 
     rename_column :contests, :body, :note
     rename_column :contests, :title, :name

@@ -1,4 +1,3 @@
-PRAGMA foreign_keys=OFF;
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY);
 INSERT INTO schema_migrations VALUES('20200405180155');

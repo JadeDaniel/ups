@@ -3,4 +3,3 @@ class AddContestToContest < ActiveRecord::Migration[6.0]
     add_column :contests, :parent_id, :integer, foreign_key: true
   end
 end
-r
