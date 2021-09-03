@@ -1,4 +1,4 @@
-class ContestsController < ApplicationController
+class ContestsController < AuthorizedController
   before_action :set_contest, only: [:show, :edit, :update, :destroy]
 
   # GET /contests
@@ -75,6 +75,6 @@ class ContestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def contest_params
-      params.require(:contest).permit(:name, :note, :parent_id)
+      params.require(:contest).permit(:name, :note, :parent_id, :completed)
     end
 end

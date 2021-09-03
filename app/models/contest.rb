@@ -16,7 +16,7 @@ class Contest < ApplicationRecord
       end
     end
   
-    def self.bread_crumb_length
+    def self.total_bread_crumb_length
       3
     end
   
@@ -27,9 +27,10 @@ class Contest < ApplicationRecord
     end
 
     def get_bread_crumbs
-      depth = Contest.bread_crumb_length + 1
+      depth = Contest.total_bread_crumb_length + 1
       bread_crumbs = []
       c = self
+      bread_crumbs.push c # add self
       while depth > 0 
         if c.get_parent
           c = c.get_parent

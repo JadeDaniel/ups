@@ -1,19 +1,25 @@
 <% @contest.get_bread_crumbs.reverse.each_with_index do |c, index| %>
-    <% if index == 0 && @contest.get_bread_crumbs.length > Contest.bread_crumb_length %>
+    <% if index == 0 && @contest.get_bread_crumbs.length > Contest.total_bread_crumb_length %>
         <% if c == 'root'%>
             <%= link_to '...', contests_url %>
         <% else %>
             <%= link_to "...", contest_path(c.id) %>
         <% end %>
     <% else %>
-         <% if c == 'root'%>
+        <% if c == 'root'%>
             <%= link_to 'Contests', contests_url %>
         <% else %>
-        <%= link_to c.name, contest_path(c.id) %>
+            <% if index == @contest.get_bread_crumbs.length - 1 %>
+                <em><%= c.name %></em>
+            <% else %>
+                <%= link_to c.name, contest_path(c.id) %>
+            <% end %>
         <% end %>
     <% end %>
 
     <% if index < @contest.get_bread_crumbs.length - 1 %>
         /
     <% end %>
+
+    
 <% end %>

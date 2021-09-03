@@ -11,7 +11,7 @@
 <div id="contests">
   <hr/>
   <table>
-  <% @contest.contests.sort_by{|o| o.votes.size}.reverse.each do |contest| %>
+  <% @contest.contests.sort_by{|c| c.completed ? 1 : 0}.sort_by{|o| o.votes.size}.reverse.each do |contest| %>
     <% next if contest.id.nil? %>
     <tr>
     <div>
@@ -20,8 +20,13 @@
             <%= f.submit "Up" %>
             <%= f.hidden_field :contest_id, value: contest.id %>
           <% end %>
+          <%= form_for [contest] do |f| %>
+            <%= f.submit "√" %>
+            <%= f.hidden_field :completed, value: true %>
+          <% end %>
         </td>
         <td><strong><%= link_to contest.name, contest_path(contest) %></strong></td>
+        <td color="green"><%= "completed" if contest.completed %></td>
         <td><small><%= contest.votes.size %> votes</small></td>
         <td><%= link_to 'Delete', contest_path(contest.id), method: :delete, data: { confirm: 'Are you sure?' } %></small></td>
         <td><small><%= contest.votes.pluck("created_at").sort.last %></small></td>
