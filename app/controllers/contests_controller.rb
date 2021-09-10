@@ -43,6 +43,7 @@ class ContestsController < AuthorizedController
   def update
     respond_to do |format|
       if @contest.update(contest_params)
+        logger.info params["completed"]
         if params["completed"] == true
           format.html { redirect_to :back, notice: 'Contest was successfully updated.' }
           format.json { render :show, status: :ok, location: :back }
