@@ -43,8 +43,13 @@ class ContestsController < AuthorizedController
   def update
     respond_to do |format|
       if @contest.update(contest_params)
-        format.html { redirect_to @contest, notice: 'Contest was successfully updated.' }
-        format.json { render :show, status: :ok, location: @contest }
+        if params["completed"] == true
+          format.html { redirect_to :back, notice: 'Contest was successfully updated.' }
+          format.json { render :show, status: :ok, location: :back }
+        else
+          format.html { redirect_to @contest, notice: 'Contest was successfully updated.' }
+          format.json { render :show, status: :ok, location: @contest }
+        end
       else
         format.html { render :edit }
         format.json { render json: @contest.errors, status: :unprocessable_entity }
