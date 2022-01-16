@@ -2,24 +2,74 @@
 
 <h1>Contests</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
-      <th>Leader</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="container">
+  <% @contests.where(parent_id: nil).each do |contest| %>
+  <div class="row" id="ContestName-row">
+    <div class="col-2" id="ContestUp-col">
+      <div class="row" id="ContestUp-topRow">
+        <div class="col" id="ContestUpAction-col">
+          <%= "completed" if contest.completed %>
+          <%= form_for [contest, contest.votes.build] do |f| %>
+            <%= f.submit "Up" %>
+            <%= f.hidden_field :contest_id, value: contest.id %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row" id="ContestUpBottomRow">
+        <div class="col" id="ContestUpCount-col">
+          <%= contest.votes.count %>
+        </div>
+      </div>
+    </div>
+    <div class="col-10" id="ContestName-col">
+      <%= link_to contest.name, contest_path(contest) %>
+    </div>
+  </div>
+  <div class="row" id="ContestDesc-row">
+    <div class="col-12" id="ContestDesc-col">
 
-  <tbody>
-    <% @contests.where(parent_id: nil).each do |contest| %>
-      <tr>
-        <%= render contest%>
-      </tr>
+    </div>
+  </div>
+  <div class="row" id="ContestAction-row">
+    <div class="col-12" id="ContestAction-col">
+
+    </div>
+  </div>
     <% end %>
-  </tbody>
-</table>
+</div>
+
+<table>
+
+<!--  <tbody>-->
+    <%# @contests.where(parent_id: nil).each do |contest| %>
+<!--      <tr>-->
+        <%#= render contest%>
+<!--        <div>-->
+<!--          <td>-->
+            <%#= form_for [contest, contest.votes.build] do |f| %>
+              <%#= f.submit "Up" %>
+              <%#= f.hidden_field :contest_id, value: contest.id %>
+            <%# end %>
+            <%#= form_for [contest] do |f| %>
+              <%#= f.submit "√" %>
+              <%#= f.hidden_field :completed, value: true %>
+            <%# end %>
+<!--          </td>-->
+<!--          <td><strong><%#= link_to contest.name, contest_path(contest) %></strong></td>-->
+<!--          <td color="green"><%#= "completed" if contest.completed %></td>-->
+<!--          <td><small><%#= contest.votes.size %> votes</small></td>-->
+<!--          <td><%#= link_to 'Delete', contest_path(contest.id), method: :delete, data: { confirm: 'Are you sure?' } %></small></td>-->
+<!--          <td><small><%#= contest.votes.pluck("created_at").sort.last %></small></td>-->
+<!--          <td>-->
+            <%# contest.tags.each do |t| %>
+              <%#= link_to t, t %>
+            <%# end %>
+<!--          </td>-->
+<!--        </div>-->
+<!--      </tr>-->
+    <%# end %>
+<!--  </tbody>-->
+<!--</table>-->
 
 <br>
 

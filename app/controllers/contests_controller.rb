@@ -1,5 +1,6 @@
 class ContestsController < AuthorizedController
   before_action :set_contest, only: [:show, :edit, :update, :destroy]
+  before_action :set_contest_contest_id, only: [:complete, :incomplete, :upvote]
 
   # GET /contests
   # GET /contests.json
@@ -35,6 +36,34 @@ class ContestsController < AuthorizedController
         format.html { render :new }
         format.json { render json: @contest.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def complete
+    @contest.update({"completed": true})
+
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path, notice: 'Completed!' }
+      format.json { render :show, status: :ok, location: :back }
+    end
+  end
+
+  def incomplete
+    @contest.update({"completed": false})
+
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path, notice: 'Un completed' }
+      format.json { render :show, status: :ok, location: :back }
+    end
+  end
+
+  def upvote
+    @contest.votes << Vote.new({contest_id: @contest.id})
+    @contest.save
+
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path, notice: 'Vote counted' }
+      format.json { render :show, status: :ok, location: :back }
     end
   end
 
@@ -78,6 +107,10 @@ class ContestsController < AuthorizedController
     def set_contest
       @contest = Contest.includes(:votes).find(params[:id])
     end
+
+  def set_contest_contest_id
+    @contest = Contest.includes(:votes).find(params[:contest_id])
+  end
 
     # Only allow a list of trusted parameters through.
     def contest_params

@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get 'welcome', to: 'sessions#welcome', as: 'welcome'
 
     resources :contests do
+      patch 'complete'
+      patch 'incomplete'
+      patch 'upvote'
       resources :votes
       resources :items do
         resources :votes
