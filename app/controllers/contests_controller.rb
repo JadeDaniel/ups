@@ -5,7 +5,8 @@ class ContestsController < AuthorizedController
   # GET /contests
   # GET /contests.json
   def index
-    @contests = Contest.all
+    @contests = Contest.all.where(parent_id: nil)
+    @new_sub_contest = @contests.build
   end
 
   # GET /contests/1
