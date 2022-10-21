@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Ups</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Ups</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-  <header class="navbar">
-    <a class="navbar-brand">Little Ups</a>
-    <div class="navbar-nav-scroll">
+<body>
+<header class="navbar">
+  <a class="navbar-brand">Little Ups</a>
+  <div class="navbar-nav-scroll">
     <ul class="navbar-nav">
       <li class="nav-item">
         <% if current_user %>
@@ -23,9 +23,15 @@
           <%= link_to "Log In", login_path %>
         <% end %>
       </li>
-    </ul>    
-    </div>
-  </header>
-      <%= yield %>
-  </body>
+    </ul>
+  </div>
+</header>
+<div class="container">
+  <%= yield %>
+</div>
+<div class="container footer small mt-5">
+  Arrow Up by Bluetip Design from <a href="https://thenounproject.com/browse/icons/term/arrow-up/" target="_blank" title="Arrow Up Icons">Noun Project</a>
+  back by Alzam from <a href="https://thenounproject.com/browse/icons/term/back/" target="_blank" title="back Icons">Noun Project</a>
+</div>
+</body>
 </html>
