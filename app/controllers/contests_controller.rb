@@ -2,6 +2,8 @@ class ContestsController < AuthorizedController
   before_action :set_contest, only: [:show, :edit, :update, :destroy]
   before_action :set_contest_contest_id, only: [:complete, :incomplete, :upvote]
 
+  rescue_from ActionController::ParameterMissing, with: :missing_parameter_error
+
   # GET /contests
   # GET /contests.json
   def index
@@ -116,6 +118,19 @@ class ContestsController < AuthorizedController
 
     # Only allow a list of trusted parameters through.
     def contest_params
-      params.require(:contest).permit(:name, :note, :parent_id, :completed)
+      params.require(:contest).let do |contest|
+        contest.require(:name)
+        contest.permit(:name, :note, :parent_id, :completed)
+      end
     end
+
+  def missing_parameter_error(exception)
+    if exception.is_a?(ActionController::ParameterMissing) && exception.param == :name
+      flash[:contest_needs_name] = "Please create a name"
+      # redirect back
+      redirect_back fallback_location: root_path
+    else
+      raise exception
+    end
+  end
 end

@@ -5,4 +5,9 @@
         <%= f.submit %>
     </div>
         <%= f.hidden_field :parent_id %>
+  <% if flash[:contest_needs_name] %>
+    <div class="error text-danger">
+      <%= flash[:contest_needs_name] %>
+    </div>
+    <% end %>
 <% end %>

@@ -1,55 +1,90 @@
-<div id="contests">
+ <div id="contests" class="col">
+
+  <!-- Button to trigger the modal -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    Open Modal
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Modal content goes here.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <% @contest.contests.sort_by { |c| c.completed ? 1 : 0 }.sort_by { |o| o.votes.size }.reverse.each do |contest| %>
     <% next if contest.id.nil? %>
     <div class="container m-1 card">
-      <div class="row" id="ContestListItemTopRow">
-        <div class="col-2" id="ContestUpVoteColumn">
-          <div class="row" id="ContestUpVoteTopRow">
-            <div class="col-2" id="ContestCompletedCol">
-              <% if contest.completed %>
-                <h4 style="color: green;"><%= "√" %></h4>
-              <% end %>
-            </div>
-            <div class="col-10" id="ContestUpVoteButton">
+      <div class="row" id="contest-card-row">
+        <div class="col" id="contest-left-col">
+          <div class="row" id="contest-left-col-top-row">
+            <div class="col-6" id="contest-up-div">
               <h4>
                 <%= link_to contest_upvote_path(contest.id), method: :patch do %>
-                  <%= image_tag("noun-arrow-up-390383.svg", { :height => "40%", :width => "40%" }) %>
+                  <%#= image_tag("noun-arrow-up-390383.svg", { :height => "40%", :width => "40%" }) %>
+                  ↑
                 <% end %>
               </h4>
             </div>
           </div>
-          <div class="row" id="ContestUpVoteBottomRow">
-            <div class="col" id="ContestCountCol">
+          <div class="row" id="contest-left-col-bottom-row">
+            <div class="col" id="contest-count-div">
               <small><%= contest.votes.count %> votes</small>
             </div>
           </div>
         </div>
-        <div class="col-10" id="ContestNameAndDescCol">
+        <div class="col-8" id="ContestNameAndDescCol">
           <div class="row" id="ContestNameRow">
             <div class="col" id="ContestNameCol">
-              <h3><%= link_to contest.name, contest_path(contest) %></h3>
+              <h3>
+                <% if contest.completed %>
+                  <span style="color: green;"><%= "✓" %></span>
+                <% end %>
+                <%= link_to contest.name.present? ? contest.name : "contest " + contest.id.to_s , contest_path(contest) %>
+              </h3>
             </div>
           </div>
           <div class="row" id="ContestDescRow">
             <div class="col" id="ContestDescCol">
               <h6>
-                <%= contest.note&.split("\n")&.first %>
+                <%= contest.note&.partition("\n")&.first %>
               </h6>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row" id="ContestActionRow">
-        <div class="col" id="ContestCompleteCol">
-          <% if not contest.completed %>
-            <%= link_to 'Complete', contest_complete_path(contest.id), method: :patch %>
-          <% else %>
-            <%= link_to 'Incomplete', contest_incomplete_path(contest.id), method: :patch %>
-          <% end %>
-        </div>
-        <div class="col" id="ContestDeleteCol">
-          <%= link_to 'Delete', contest_path(contest.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <div class="col-2" id="contest-right-col">
+            <div class="" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+              <h3>⠇</h3>
+            </div>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <% if not contest.completed %>
+                <%= link_to 'Complete', contest_complete_path(contest.id), method: :patch, class: "dropdown-item" %>
+              <% else %>
+                <%= link_to 'Incomplete', contest_incomplete_path(contest.id), method: :patch, class: "dropdown-item" %>
+              <% end %>
+              <%= link_to 'Delete', contest_path(contest.id), method: :delete, data: { confirm: 'Are you sure?' },
+                          class: "dropdown-item" %>
+            </div>
+          <small>
+
+          </small>
         </div>
       </div>
     </div>

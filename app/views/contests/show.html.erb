@@ -2,12 +2,11 @@
 
 <%= render "contests/bread_crumbs" %>
 <br />
+<h2><%= @contest.name %></h2>
+<%= link_to 'Edit', edit_contest_path(@contest) %>
 <%= link_to @contest.parent_id ? contest_path(@contest.parent_id) : contests_url do %>
   Back <%= image_tag( "noun-back-5153385.svg", {:height => "5%", :width => "5%"}) %>
 <% end %>
-
-<h2><%= @contest.name %></h2>
-<%= link_to 'Edit', edit_contest_path(@contest) %>
 
 <p>
   <%= @contest.note %>
@@ -17,5 +16,10 @@
 
 <%= render 'contests/inline_form' %>
 
-<%= render 'contests' %>
+<div class="container-fluid">
+  <div class="row">
+    <%= render 'contests' %>
+    <%= render 'sidebar' %>
+  </div>
+</div>
 
