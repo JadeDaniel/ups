@@ -2,7 +2,7 @@
 
   <!-- Button to trigger the modal -->
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Open Modal
+    If this button opens a modal, it means JS works!
   </button>
 
   <!-- Modal -->
@@ -25,6 +25,12 @@
       </div>
     </div>
   </div>
+
+   <div>
+     <h5>Tag Cloud Experiment</h5>
+     <p>#home, #maintenance, #todo,<br>
+     #finance, #happiness, #relationship</p>
+   </div>
 
 
   <% @contest.contests.sort_by { |c| c.completed ? 1 : 0 }.sort_by { |o| o.votes.size }.reverse.each do |contest| %>

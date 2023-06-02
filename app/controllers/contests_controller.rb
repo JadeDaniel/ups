@@ -118,10 +118,10 @@ class ContestsController < AuthorizedController
 
     # Only allow a list of trusted parameters through.
     def contest_params
-      params.require(:contest).let do |contest|
+      params.require(:contest).then { |contest|
         contest.require(:name)
         contest.permit(:name, :note, :parent_id, :completed)
-      end
+      }
     end
 
   def missing_parameter_error(exception)
